@@ -11,10 +11,21 @@ Look no further than _bonfire_! _Bonfire_ allows you to set restoration checkpoi
 Whitelist which applications you want _bonfire_ to track, rename your bonfire restore points and create custom keybindings to speed up your workflow. 
 
 ## How to
+```shell
+Usage: bonfire [OPTIONS] COMMAND [ARGS]...
 
+Options:
+  -q, --quiet    Silence the output
+  -v, --verbose  Make the output verbose
+  --help         Show this message and exit.
 
-
-
+Commands:
+  extinguish  Extinguish a bonfire, deleting the save point
+  light       Light a bonfire saving application state
+  list        List lit bonfires
+  rename      Rename a bonfire
+  restore     Restore application state to a bonfire save point
+```
 
 ## License
 See [LICENSE](LICENSE)
