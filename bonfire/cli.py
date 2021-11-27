@@ -1,7 +1,8 @@
 import click
 from .process import find_all_processes
 from .config import config
-from .db import Fire, list_bonfires, save_bonfire, delete_bonfire
+from .db import list_bonfires, save_bonfire, delete_bonfire, find_bonfire, rename_bonfire
+from .fire import Fire
 from tabulate import tabulate
 
 # Base command group
@@ -52,28 +53,40 @@ def list(ctx):
     else:
         click.echo(tabulate(bonfires, headers=Fire.attrs()))
 
-# Command: Rename
+# Command: bonfire rename [OPTIONS] ID NICKNAME
+# Rename a bonfire identified by ID with name NICKNAME
 @cli.command(name='rename')
-@click.argument('bonfire')
-@click.argument('name')
+@click.argument('id')
+@click.argument('nickname')
 @click.pass_context
-def rename(ctx, bonfire, name):
-    '''Rename a bonfire'''
-    pass
+def rename(ctx, id, nickname):
+    '''
+    Rename a bonfire
+    '''
+    bonfire_to_rename = find_bonfire(id)
+    if not bonfire_to_rename and not ctx.obj['quiet']:
+        click.echo('No bonfire with id {}'.format(id))
+        exit(1)
+    rename_bonfire(bonfire_to_rename, nickname)
+    if not ctx.obj['quiet']:
+        click.echo('Bonfire {} [{} --> {}]'.format(bonfire_to_rename.id, bonfire_to_rename.nickname, nickname))
 
-# Command: Extinguish
+# Command: bonfire extinguish [OPTIONS] [IDS]...
+# Extinguish one or more bonfires identified by IDS
 @cli.command(name='extinguish')
-@click.argument('bonfire')
+@click.argument('ids', nargs=-1)
 @click.pass_context
-def extinguish(ctx, bonfire):
+def extinguish(ctx, ids):
     '''
     Extinguish a bonfire, deleting the save point
     '''
-    bonfires_smothered = delete_bonfire(bonfire)
-    if not bonfires_smothered:
-        click.echo('No bonfires matching {}'.format(bonfire))
-    else:
-        click.echo("Bonfire extinguished 💨")
+    ids_to_delete = [id for id in ids]
+    bonfire_smothered = delete_bonfire(ids_to_delete)
+    if not bonfire_smothered:
+        click.echo('Failed to find all bonfires with ids {}'.format(ids_to_delete))
+        exit(1)
+    if not ctx.obj['quiet']:
+        click.echo("Bonfire{} extinguished 💨".format('s' if len(ids) > 1 else ''))
 
 if __name__ == '__main__':
     cli()
