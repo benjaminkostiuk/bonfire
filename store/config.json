@@ -1,0 +1,11 @@
+{
+    "db-path": "../store/db.json",
+    "apps": {
+        "whitelist": {
+            "chrome.exe": {},
+            "Discord.exe": {},
+            "Teams.exe": {},
+            "Code.exe": {}
+        }
+    }
+}
