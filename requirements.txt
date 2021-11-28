@@ -1,5 +1,7 @@
 click==7.1.2
 pywin32==302
+pywinauto==0.6.8
+six==1.16.0
 tabulate==0.8.9
 tinydb==4.5.2
 typing-extensions==3.10.0.2
