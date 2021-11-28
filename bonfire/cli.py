@@ -120,6 +120,9 @@ def extinguish(ctx, ids):
     Extinguish a bonfire, deleting the save point.
     '''
     ids_to_delete = [id for id in ids]
+    if not ids_to_delete:
+        cmd.echo("Error: Missing argument 'ID'.")
+        exit(1)
     try:
         delete_bonfire(ids_to_delete)
     except BonfireNotFound:
