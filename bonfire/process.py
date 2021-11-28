@@ -1,5 +1,7 @@
 import wmi
 import os
+import subprocess
+import sys
 from time import sleep
 from .config import config
 
@@ -34,6 +36,7 @@ def find_running_apps():
 
 # Open an application by starting the app from its executable path
 def open_application(app_name, exec_path):
-    print('Starting app {}'.format(app_name))
-    os.startfile('C:\\Users\\benko\\AppData\\Local\\Discord\\app-1.0.9003\\Discord.exe')
+    # Spawn a detached thread to open the application
+    # Must pass 'null' as arg to spawnl to prevent crash
+    os.spawnl(os.P_DETACH, exec_path, 'null')
     sleep(100)
