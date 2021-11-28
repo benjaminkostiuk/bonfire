@@ -1,5 +1,6 @@
 from datetime import datetime
 from .utils import format_process_name
+from .config import config
 
 # Models a lit bonfire
 class Fire():
@@ -22,7 +23,7 @@ class Fire():
 
     # Return a list with attributes about the bonfire
     def rattrs(self):
-        MAX_APPS_SHOWN = 5
+        MAX_APPS_SHOWN = config().max_apps_in_list
         app_names = ', '.join(list(map(format_process_name, self.apps.keys()))[:MAX_APPS_SHOWN])
         if len(self.apps) > MAX_APPS_SHOWN:
             app_names += ' (+{} more)'.format(len(self.apps) - MAX_APPS_SHOWN)

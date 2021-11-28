@@ -1,8 +1,5 @@
 import wmi
 import os
-import subprocess
-import sys
-from time import sleep
 from .config import config
 
 # Models information about applications
@@ -33,8 +30,7 @@ def find_running_apps():
     return app_map
 
 # Open an application by starting the app from its executable path
-def open_application(app_name, exec_path):
+def open_application(exec_path):
     # Spawn a detached thread to open the application
     # Must pass 'null' as arg to spawnl to prevent crash
     os.spawnl(os.P_DETACH, exec_path, 'null')
-    sleep(100)

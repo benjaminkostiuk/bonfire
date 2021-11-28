@@ -47,4 +47,4 @@ def delete_bonfire(identifiers):
         ids = list(map(int, identifiers))
         return db.remove(doc_ids=ids)
     except (KeyError, ValueError) as e:
-        return []
+        raise BonfireNotFound()
