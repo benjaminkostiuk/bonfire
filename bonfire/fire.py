@@ -22,7 +22,7 @@ class Fire():
 
     # Return a list with attributes about the bonfire
     def rattrs(self):
-        MAX_APPS_SHOWN = 2
+        MAX_APPS_SHOWN = 5
         app_names = ', '.join(list(map(format_process_name, self.apps.keys()))[:MAX_APPS_SHOWN])
         if len(self.apps) > MAX_APPS_SHOWN:
             app_names += ' (+{} more)'.format(len(self.apps) - MAX_APPS_SHOWN)
