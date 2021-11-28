@@ -51,7 +51,7 @@ def light(ctx, nickname):
     # Echo all proceses found if verbose
     if ctx.obj['verbose']:
         for process in running_apps:
-            cmd.vecho('Found process {} with exec path {}'.format(process, running_apps[process]))
+            cmd.vecho('Found process {} with exec path {}'.format(process, running_apps[process]['path']))
     # Build and save a bonfire
     bonfire = Fire(running_apps, nickname=nickname)
     save_bonfire(bonfire)
