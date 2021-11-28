@@ -29,8 +29,6 @@ def find_running_apps():
     app_map = {}
     for process in c.Win32_Process():
         if process.Name in config().whitelist and process.Name not in app_map:
-            print("Found {}".format(process.Name))
-            # Change this to use Application
             app_map[process.Name] = process.ExecutablePath
     return app_map
 

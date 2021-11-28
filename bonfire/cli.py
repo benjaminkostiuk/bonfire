@@ -1,7 +1,9 @@
 import click
-from .process import find_all_processes
+
+from bonfire.exceptions import BonfireNotFound
+from .process import find_running_apps, open_application
 from .config import config
-from .db import list_bonfires, save_bonfire, delete_bonfire, find_bonfire, rename_bonfire
+from .db import list_bonfires, save_bonfire, delete_bonfire, find_bonfire_by_id, find_bonfire_by_nickname, rename_bonfire
 from .fire import Fire
 from tabulate import tabulate
 
@@ -25,19 +27,37 @@ def light(ctx, nickname):
     '''
     Light a bonfire saving application state
     '''
-    new_fire = Fire([], nickname=nickname)
-    save_bonfire(new_fire)
+    if not ctx.obj['quiet']:
+        click.echo('Chopping up wood 🪓')
+    running_apps = find_running_apps()
+    # Echo all proceses found if verbose
+    if ctx.obj['verbose']:
+        for process in running_apps:
+            click.echo('Found process {} with exec path {}'.format(process, running_apps[process]))
+    # Build and save a bonfire
+    bonfire = Fire(running_apps, nickname=nickname)
+    save_bonfire(bonfire)
     if not ctx.obj['quiet']:
         click.echo("Bonfire lit 🔥")
 
 # Command: Restore
 @cli.command(name='restore')
+@click.argument('identifier')
 @click.pass_context
-def restore(ctx):
+def restore(ctx, identifier):
     '''
     Restore application state to a bonfire save point
     '''
-    pass
+    try:
+        lit_bonfire = find_bonfire_by_nickname(identifier)
+    except BonfireNotFound as e:
+        if not ctx.obj['quiet']:
+            click.echo('Could not find bonfire for nickname or id {}'.format(identifier))
+            exit(1)
+    click.echo('Rekindling bonfire 🎇')
+    for process in lit_bonfire.apps:
+        open_application(process, lit_bonfire.apps[process])
+    click.echo('Bonfire rekindled 🔥')
 
 # Command: bonfire list [OPTIONS]
 @cli.command(name='list')
@@ -63,7 +83,7 @@ def rename(ctx, id, nickname):
     '''
     Rename a bonfire
     '''
-    bonfire_to_rename = find_bonfire(id)
+    bonfire_to_rename = find_bonfire_by_id(id)
     if not bonfire_to_rename and not ctx.obj['quiet']:
         click.echo('No bonfire with id {}'.format(id))
         exit(1)
