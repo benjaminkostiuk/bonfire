@@ -2,7 +2,10 @@
     "db-path": "../store/db.json",
     "apps": {
         "whitelist": {
-            "chrome.exe": {},
+            "chrome.exe": {
+                "name": "Google Chrome",
+                "allow-multiple": true
+            },
             "Discord.exe": {},
             "Teams.exe": {},
             "Code.exe": {
@@ -20,9 +23,8 @@
             "onenoteim.exe": {
                 "name": "OneNote"
             },
-            "OUTLOOK.EXE": {},
-            "explorer.exe": {
-                "name": "File Explorer"
+            "OUTLOOK.EXE": {
+                "name": "Outlook"
             },
             "WindowsTerminal.exe": {},
             "idea64.exe": {
