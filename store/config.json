@@ -5,7 +5,33 @@
             "chrome.exe": {},
             "Discord.exe": {},
             "Teams.exe": {},
-            "Code.exe": {}
+            "Code.exe": {
+                "name": "VSCode"
+            },
+            "WINWORD.EXE": {
+                "name": "Word"
+            },
+            "EXCEL.EXE": {
+                "name": "Excel"
+            },
+            "POWERPNT.EXE": {
+                "name": "PowerPoint"
+            },
+            "onenoteim.exe": {
+                "name": "OneNote"
+            },
+            "OUTLOOK.EXE": {},
+            "explorer.exe": {
+                "name": "File Explorer"
+            },
+            "WindowsTerminal.exe": {},
+            "idea64.exe": {
+                "name": "IntelliJ"
+            },
+            "steam.exe": {
+                "name": "Steam"
+            }
         }
-    }
+    },
+    "max-apps-shown": 5
 }
