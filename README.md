@@ -24,7 +24,7 @@ mkdir venv
 python -m venv venv
 venv\Scripts\activate.bat
 ```
-To install the _bonfire_ CLI from the root of the repository run:
+To install the _bonfire_ CLI, from the root of the repository run:
 ```
 pip install .
 ```
@@ -63,7 +63,7 @@ List all lit bonfires, along with their creation timestamp, id, nickname and a s
 ```
 Usage: bonfire rename ID NICKNAME
 ```
-Rename a lit bonfire, or provide an unamed bonfire a nickname. You do so by specifying the id of the bonfire you want to nickname or rename.
+Rename a lit bonfire, or provide a nickname to an unamed bonfire. You do so by specifying the id of the bonfire you want to nickname or rename.
 
 #### Restore
 ```
