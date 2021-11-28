@@ -1,5 +1,7 @@
 from tinydb import Query
 from tinydb.queries import where
+
+from .exceptions import BonfireNotFound, MultipleBonfiresFound
 from .config import config
 from .fire import Fire
 
@@ -17,14 +19,26 @@ def rename_bonfire(bonfire, nickname):
 def list_bonfires():
     return list(map(Fire.fromdict, config().db.all()))
 
-# Find a bonfire by id
-def find_bonfire(identifier):
+# Find a bonfire by id or nickname
+def find_bonfire_by_id(id):
     db = config().db
     try:
-        found = db.get(doc_id=int(identifier))
-        return Fire.fromdict(found) if found else None
-    except ValueError as e:
-        return None
+        found = db.get(doc_id=int(id))
+    except (KeyError, ValueError) as e:
+        found = None 
+    if not found:
+        raise BonfireNotFound('No bonfire with id {} found.')
+    return Fire.fromdict(found)
+
+# Find a bonfire by nickname
+def find_bonfire_by_nickname(nickname):
+    db = config().db
+    found = db.search(where('nickname') == nickname) 
+    if not found:
+        raise BonfireNotFound("No bonfires found for nickname '{}'".format(nickname))
+    elif len(found) > 1:
+        raise MultipleBonfiresFound("Multiple bonfires with nickname '{}' found.".format(nickname))
+    return Fire.fromdict(found[0])
 
 # Delete a bonfire by id
 def delete_bonfire(identifiers):
