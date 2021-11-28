@@ -25,7 +25,7 @@ def cli(ctx, quiet, verbose):
 @click.pass_context
 def light(ctx, nickname):
     '''
-    Light a bonfire saving application state
+    Light a bonfire saving application state. Optionally give the bonfire a nickname.
     '''
     if not ctx.obj['quiet']:
         click.echo('Chopping up wood 🪓')
