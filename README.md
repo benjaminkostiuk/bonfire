@@ -83,6 +83,9 @@ Extinguish one or more bonfires, deleting their save points. You can specify whi
 ### Configuration
 Configure the application whitelist and other options in [config.json](./store/config.json).
 
+### Devpost
+See the devpost [here](https://devpost.com/software/bonfire-zji4bu).
+
 ## License
 See [LICENSE](LICENSE)
 
